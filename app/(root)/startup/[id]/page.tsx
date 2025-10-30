@@ -4,9 +4,11 @@ import { STARTUP_BY_ID_QUERY } from '@/sanity/lib/queries'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 import markdownit from 'markdown-it'
+import { Skeleton } from '@/components/ui/skeleton'
+import View from '@/components/View'
 const md = markdownit()
 
 const page = async ({params} : {params: Promise<{id : string}>}) => {
@@ -64,7 +66,11 @@ const parsedContent = md.render(post?.pitch || "");
         </div>
         <hr className='divider'/>
 
-        {/* EDITOR SELECTED STARTUPS */}
+        {/* TODO: EDITOR SELECTED STARTUPS */}
+
+        <Suspense fallback={<Skeleton className='view_skeleton'/>}>
+            <View id={id}/>
+        </Suspense>
     </section>
     </>
   )
