@@ -8,15 +8,16 @@ import { Button } from './ui/button';
 import { Send } from 'lucide-react';
 import { formSchema } from '@/lib/validation';
 import { z } from "zod";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/navigation";
 import { useToast } from '@/hooks/use-toast';
+import { createPitch } from '@/lib/actions';
 
 const StartupForm = () => {
 
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [pitch, setPitch] = useState("");
     const { toast } = useToast();
-    // const router = useRouter();
+    const router = useRouter();
 
     const handleFormSubmit = async (prevState: any, formData: FormData) => {
         try {
@@ -29,21 +30,21 @@ const StartupForm = () => {
               };
 
               await formSchema.parseAsync(formValues);
-              console.log(formValues)
+             
 
-     // const result = await createPitch(prevState, formData, pitch);
-    //  console.log(result)
+     const result = await createPitch(prevState, formData, pitch);
+ 
 
-    // if (result.status == "SUCCESS") {
-    //     toast({
-    //       title: "Success",
-    //       description: "Your startup pitch has been created successfully",
-    //     });
+    if (result.status == "SUCCESS") {
+        toast({
+          title: "Success",
+          description: "Your startup pitch has been created successfully",
+        });
 
-    //     router.push(`/startup/${result._id}`);
-    //   }
+        router.push(`/startup/${result._id}`);
+      }
 
-    //   return result;
+      return result;
 
         } catch (error) {
 

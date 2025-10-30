@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
-import { Author, Startup } from "@/sanity/types";
+import { Author, Startup } from "@/app/sanity/types";
 
 export type StartupCardType = Omit<Startup, "author"> & { author?: Author };
 
