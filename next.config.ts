@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  productionBrowserSourceMaps: true, // ✅ ensures maps are built
   typescript: {
     ignoreBuildErrors: true,
   },
